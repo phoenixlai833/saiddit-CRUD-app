@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Post</title>
+</head>
+
+<body>
+    <div class="header" style="display:flex; justify-content: space-between;">
+        <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
+        <a href="/posts/create">Create a Post!</a>
+        <a href="/subs/list">Browse Subs</a>
+        <form method="POST" action="/logout">
+            <button type="submit">Log Out</button>
+        </form>
+    </div>
+
+    <a href="/posts/show/<%= select_post.id %>">Back</a>
+    <hr>
+    <form action="/posts/delete/<%= select_post.id %>" method="POST"
+        style="display:flex; flex-direction: column; width:25%;">
+        <button type="submit">Delete</button>
+    </form>
+
+    <h2>
+        <%= select_post.title %>
+    </h2>
+    <a href="<%= select_post.link %>">
+        <%= select_post.link %>
+    </a>
+    <br>
+    <%= select_post.timestamp %> - <a href="/users/show/<%= select_post.creator.id %> "><%= select_post.creator.uname %></a>
+            <h3>Comments:</h3>
+            <ul style="list-style-type: none;">
+                <% select_post.comments.forEach(comment=> { %>
+                    <% if (comment.post_id===select_post.id) { %>
+                        <%= comment.description %>
+                            <br>
+                            <%= comment.creator.uname %>
+                                <br>
+                                <%= comment.timestamp %>
+                                    <% } %>
+                                        <% }) %>
+
+            </ul>
+</body>
+
+</html>

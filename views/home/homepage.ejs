@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <script>
+    const btn = document.getElementById("btn0")
+    function buttonDown() {
+      btn.focus();
+      btn.click();
+    };
+
+  </script>
+  <style>
+    .btn {
+      background-color: white;
+    }
+
+    .btn:active,
+    .btn.active {
+      background-color: green;
+      outline: none;
+    }
+
+    .btn:focus {
+      background-color: green;
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <% if (!user) { %>
+    <div class="header" style="display:flex; justify-content: space-between;">
+      <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;" /></a></h1>
+      <a href="/login">Log in</a>
+      <a href="/signup">Sign Up</a>
+      <a href="/subs/list">Browse Subs</a>
+    </div>
+
+    <div style="display: flex; justify-content: end;">
+      <h4 style="margin: 0%">Order By:</h4>
+      <form method="GET" action="/">
+        <input type="hidden" name="orderby" value="date" />
+        <button type="submit" style="margin-left: 10%;">Date</button>
+      </form>
+      <form method="GET" action="/">
+        <input type="hidden" name="orderby" value="votes" />
+        <button type="submit" style="margin-left: 20%;">Votes</button>
+      </form>
+    </div>
+
+    <p>
+      <% all_posts.forEach(post=> { %>
+        <h2><a href="/posts/show/<%= post.id%>">
+            <%= post.title %>
+          </a></h2>
+        Votes: <%= post.total_votes %>
+          <br>
+          <small>
+            <a href="<%= post.link %>">
+              <%= post.link %>
+            </a>
+          </small>
+          <br>
+          <p>
+            <%= post.timestamp %> - <a href="/users/show/<%= post.creator.id %> ">
+                <%= post.creator.uname %>
+              </a>
+          </p>
+          <hr>
+          <% }) %>
+    </p>
+
+    <% } else { %>
+      <div class="header" style="display: flex; justify-content: space-between;">
+        <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;" /></a></h1>
+        Current User: <%= user.username %>
+          <a href="/posts/create">Create a Post!</a>
+          <a href="/subs/list">Browse Subs</a>
+          <form method="POST" action="/logout">
+            <button type="submit">Log Out</button>
+          </form>
+      </div>
+
+      <div style="display: flex; justify-content: end;">
+        <h4 style="margin: 0%">Order By:</h4>
+        <form method="GET" action="/">
+          <input type="hidden" name="orderby" value="date" />
+          <button type="submit" style="margin-left: 10%;">Date</button>
+        </form>
+        <form method="GET" action="/">
+          <input type="hidden" name="orderby" value="votes" />
+          <button type="submit" style="margin-left: 20%;">Votes</button>
+        </form>
+      </div>
+
+      <p>
+        <% all_posts.forEach(post=> { %>
+          <h2><a href="/posts/show/<%= post.id%>">
+              <%= post.title %>
+            </a></h2>
+          <div style="display:flex;">
+            Votes: <%= post.total_votes %>
+              <form action="/posts/vote/<%= post.id%>" method="POST"
+                style="width:10%; margin-left:1%; margin-right:0%;">
+                <button id="btn0" class="btn" type="text" name="vote" value="+" onclick="buttonDown()">+</button>
+                <button id="btn0" class="btn" type="text" name="vote" value="-" onclick="buttonDown()">-</button>
+              </form>
+          </div>
+
+          <br>
+          <small>
+            <a href="<%= post.link %>">
+              <%= post.link %>
+            </a>
+          </small>
+          <br>
+          <p>
+            <%= post.timestamp %> - <a href="/users/show/<%= post.creator.id %> ">
+                <%= post.creator.uname %>
+              </a>
+          </p>
+          <hr>
+          <% }) %>
+      </p>
+      <% } %>
+
+</body>
+
+</html>

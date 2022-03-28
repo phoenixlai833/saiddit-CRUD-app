@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Post</title>
+    <script>
+        const btn = document.getElementById("btn0")
+        function buttonDown() {
+            btn.focus();
+            btn.click();
+        };
+
+    </script>
+    <style>
+        .btn {
+            background-color: white;
+        }
+
+        .btn:active,
+        .btn.active {
+            background-color: green;
+            outline: none;
+        }
+
+        .btn:focus {
+            background-color: green;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <% if (!user) { %>
+        <div class="header" style="display:flex; justify-content: space-between;">
+            <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
+            <a href="/login">Log in</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/subs/list">Browse Subs</a>
+        </div>
+        <h2>
+            <%= select_post.title %>
+        </h2>
+        Votes: <%= select_post.total_votes %>
+            <br>
+            <P>
+                <%= select_post.description %>
+            </P>
+            <a href="<%= select_post.link %>">
+                <%= select_post.link %>
+            </a>
+            <br>
+            <%= select_post.timestamp %> - <a href="/users/show/<%= select_post.creator.id %> ">
+                    <%= select_post.creator.uname %>
+                </a>
+                <h3>Comments:</h3>
+                <ul style="list-style-type: none;">
+                    <% select_post.comments.forEach(comment=> { %>
+                        <li>
+                            <% if (comment.post_id===select_post.id) { %>
+                                <%= comment.description %>
+                                    <br>
+                                    <a href="/users/show/<%= comment.creator.id %> ">
+                                        <%= comment.creator.uname %>
+                                    </a>
+                                    <br>
+                                    <%= comment.timestamp %>
+                                        <a href="/comments/show/<%= comment.id %> ">View Comment</a>
+                                        <% } %>
+
+                                            <% if (comment.replies) { %>
+                                                <ul>
+                                                    <% comment.replies.forEach(reply=> { %>
+                                                        <li>
+                                                            <h4>
+                                                                <%= reply.description %>
+                                                            </h4>
+                                                            <small>
+                                                                <%= reply.user_id%> - <%= reply.timestamp %>
+                                                            </small>
+                                                        </li>
+                                                        <% }) %>
+                                                </ul>
+                                                <% } %>
+
+                                                    <% }) %>
+                        </li>
+                </ul>
+                <% } else { %>
+                    <div class="header" style="display:flex; justify-content: space-between;">
+                        <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
+                        <a href="/posts/create">Create a Post!</a>
+                        <a href="/subs/list">Browse Subs</a>
+                        <form method="POST" action="/logout">
+                            <button type="submit">Log Out</button>
+                        </form>
+                    </div>
+                    <% if (user.username===select_post.creator.uname) { %>
+                        <a href="/posts/edit/<%= select_post.id %>">Edit</a>
+                        <a href="/posts/deleteconfirm/<%= select_post.id %>">Delete</a>
+                        <% } %>
+
+                            <h2>
+                                <%= select_post.title %>
+                            </h2>
+                            <div style="display:flex;">
+                                Votes: <%= select_post.total_votes %>
+                                    <form action="/posts/vote/<%= select_post.id%>" method="POST"
+                                        style="width:10%; margin-left:1%; margin-right:0%;">
+                                        <button id="btn0" class="btn" type="text" name="vote" value="+"
+                                            onclick="buttonDown()">+</button>
+                                        <button id="btn0" class="btn" type="text" name="vote" value="-"
+                                            onclick="buttonDown()">-</button>
+                                    </form>
+                            </div>
+                            <P>
+                                <%= select_post.description %>
+                            </P>
+                            <a href="<%= select_post.link %>">
+                                <%= select_post.link %>
+                            </a>
+                            <br>
+                            <%= select_post.timestamp %> - <a href="/users/show/<%= select_post.creator.id %> ">
+                                    <%= select_post.creator.uname %>
+                                </a>
+                                <h3>Comments:</h3>
+                                <ul style="list-style-type: none;">
+                                    <% select_post.comments.forEach(comment=> { %>
+                                        <li>
+                                            <%= comment.description %>
+                                                <br>
+                                                <a href="/users/show/<%= comment.creator.id %>">
+                                                    <%= comment.creator.uname %>
+                                                </a>
+                                                <br>
+                                                <%= comment.timestamp %>
+
+                                                    <a href="/comments/show/<%= comment.id %> ">Reply</a>
+
+                                                    <% if (comment.creator.uname===user.username) { %>
+                                                        <a href="/comments/deleteconfirm/<%= comment.id %> ">Delete</a>
+                                                        <% } %>
+
+                                                            <% if (comment.replies) { %>
+                                                                <ul>
+                                                                    <% comment.replies.forEach(reply=> { %>
+                                                                        <li>
+                                                                            <h4>
+                                                                                <%= reply.description %>
+                                                                            </h4>
+                                                                            <small>
+                                                                                <%= reply.user_id.uname%> - <%=
+                                                                                        reply.timestamp %>
+                                                                            </small>
+                                                                        </li>
+                                                                        <% }) %>
+                                                                </ul>
+                                                                <% } %>
+                                        </li>
+                                        <% }) %>
+                                </ul>
+
+                                <form action="/posts/comment-create/<%= select_post.id %>" method="POST"
+                                    style="display:flex; flex-direction: column; margin:20%;">
+
+                                    <label for="input_description">Description:</label>
+                                    <textarea name="description" id="input_description"></textarea required>
+
+                                     <hr>
+                                     <button type="submit">Comment</button>
+                                 </form>
+                                    <% } %>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Comment</title>
+</head>
+
+<body>
+    <div class="header" style="display:flex; justify-content: space-between;">
+        <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
+        <a href="/posts/create">Create a Post!</a>
+        <a href="/subs/list">Browse Subs</a>
+        <form method="POST" action="/logout">
+            <button type="submit">Log Out</button>
+        </form>
+    </div>
+
+    <form action="/comments/edit/<%= comment_id %> " method="POST"
+        style="display:flex; flex-direction: column; margin:20%;">
+
+        <label for="input_description">Description:</label>
+        <textarea name="description" id="input_description"></textarea required>
+        
+        <button type="submit">Edit</button>
+    </form>
+    
+</body>
+</html>

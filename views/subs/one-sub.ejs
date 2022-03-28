@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Sub</title>
+</head>
+
+<body>
+
+    <% if (!user) { %>
+        <div class="header" style="display:flex; justify-content: space-between;">
+            <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
+            <a href="/login">Log in</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/subs/list">Browse Subs</a>
+        </div>
+        <% } else { %>
+            <div class="header" style="display:flex; justify-content: space-between;">
+                <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
+                <a href="/posts/create">Create a Post!</a>
+                <a href="/subs/list">Browse Subs</a>
+                <form method="POST" action="/logout">
+                    <button type="submit">Log Out</button>
+                </form>
+            </div>
+            <% } %>
+
+                <div style="display: flex; justify-content: end;">
+                    <h4 style="margin: 0%">Order By:</h4>
+                    <form method="GET" action="/subs/show/<%= select_sub %> ">
+                        <input type="hidden" name="orderby" value="date" />
+                        <button type="submit" style="margin-left: 10%;">Date</button>
+                    </form>
+                    <form method="GET" action="/subs/show/<%= select_sub %> ">
+                        <input type="hidden" name="orderby" value="votes" />
+                        <button type="submit" style="margin-left: 20%;">Votes</button>
+                    </form>
+                </div>
+
+                <h2>
+                    <%= select_sub %>
+                </h2>
+
+                <p>
+                    <% sub_posts.forEach(post=> { %>
+                        <a href="/posts/show/<%= post.id %>">
+                            <%= post.title %>
+                        </a>
+                        <br>
+                        <small>
+                            <a href="<%= post.link %>">
+                                <%= post.link %>
+                            </a>
+                        </small> -
+                        <a href="/users/show/<%= post.creator.id %> ">
+                            <%= post.creator.uname %>
+                        </a>
+                        <br>
+                        <hr>
+                        <% }) %>
+                </p>
+</body>
+
+</html>

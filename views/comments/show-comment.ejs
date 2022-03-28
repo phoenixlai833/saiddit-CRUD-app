@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Comment</title>
+</head>
+
+<body>
+    <% if (!user) { %>
+        <div class="header" style="display:flex; justify-content: space-between;">
+            <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
+            <a href="/login">Log in</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/subs/list">Browse Subs</a>
+        </div>
+
+        <h2>
+            <%= select_comment.description %>
+        </h2>
+        <h3>
+            <a href="/users/show/<%= select_comment.creator.id %>">
+                <%= select_comment.creator.uname %>
+            </a>
+        </h3>
+        <small>
+            <%= select_comment.timestamp %>
+        </small>
+
+        <h2>Replies:</h2>
+        <% if (select_comment.replies) { %>
+            <ul>
+                <% select_comment.replies.forEach(reply=> { %>
+                    <li>
+                        <h4>
+                            <%= reply.description %>
+                        </h4>
+                        <small>
+                            <%= reply.timestamp %> - <a href="/users/show/<%= reply.user_id.id %>">
+                                    <%= reply.user_id.uname%>
+                                </a>
+                        </small>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
+                <% } else { %>
+                    <div class="header" style="display:flex; justify-content: space-between;">
+                        <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
+                        <a href="/posts/create">Create a Post!</a>
+                        <a href="/subs/list">Browse Subs</a>
+                        <form method="POST" action="/logout">
+                            <button type="submit">Log Out</button>
+                        </form>
+                    </div>
+
+                    <% if (user.username===select_comment.creator.uname) { %>
+                        <a href="/comments/edit/<%= select_comment.id %> ">Edit</a>
+                        <% } %>
+
+                            <h2>
+                                <%= select_comment.description %>
+                            </h2>
+                            <h3>
+                                <a href="/users/show/<%= select_comment.creator.id %>">
+                                    <%= select_comment.creator.uname %>
+                                </a>
+                            </h3>
+                            <small>
+                                <%= select_comment.timestamp %>
+                            </small>
+
+                            <h2>Replies:</h2>
+                            <% if (select_comment.replies) { %>
+                                <ul>
+                                    <% select_comment.replies.forEach(reply=> { %>
+                                        <li>
+                                            <h4>
+                                                <%= reply.description %>
+                                            </h4>
+                                            <small>
+                                                <%= reply.timestamp %> - <a href="/users/show/<%= reply.user_id.id %>">
+                                                        <%= reply.user_id.uname%>
+                                                    </a>
+                                            </small>
+                                        </li>
+                                        <% }) %>
+                                </ul>
+                                <% } %>
+                                    <br>
+                                    <form action="/comments/reply/<%= select_comment.id %>" method="POST"
+                                        style="display:flex; flex-direction: column; margin:20%;">
+
+                                        <label for="input_description">Description:</label>
+                                        <textarea name="description" id="input_description"></textarea required>
+                        
+                        <button type="submit">Reply</button>
+                    </form>
+                 
+                    <% } %>
+</body>
+
+</html>
