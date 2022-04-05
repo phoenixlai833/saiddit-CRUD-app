@@ -1,12 +1,13 @@
 # Saiddit
 This is a dynamic CRUD web app using Express.js and EJS, simulating the actions in Reddit. This project stemmed from an assignment in our second semester web development class to practice creating multiple routes across multiple resources. Using a fake database, I also implemented cookie sessions for secure user login and browsing.
 
+🔗 https://saiddit-crud-app.herokuapp.com/
+
 ### Key Takeaways
 This reddit clone had authentication,  posting, commenting, and other features, which involved significant amounts of self-learning. I wrote all the logic code within a short timeline, and was able to learn new technologies via reading documentation and other online resources. 
 
-
 ### Currently Working On
-I will continue to add more front-end UI. I would also like to ncorporate a MySQL database to save users and content down the line.
+I would also like to incorporate a MySQL database to save users and content down the line.
 
 ---
 
@@ -14,12 +15,12 @@ I will continue to add more front-end UI. I would also like to ncorporate a MySQ
 
 ### 1. Fork the Repository.
 ```
-git clone https://github.com/iflinda/lindaful.git??????????
+git clone https://github.com/phoenixlai833/saiddit-CRUD-app
 ```
 
 ### 2. Open the folder from the terminal.
 ```
-cd lindaful
+cd saiddit-CRUD-app
 ```
 
 ### 3.  Install any dependencies.
@@ -27,24 +28,14 @@ cd lindaful
 npm install
 ```
 
-### 4. Build the production environment.
+### 4. Run the application on a local server.
 ```
-npm run build
-```
-
-### 5. Build the production environment.
-```
-npm run build
+npm run dev
 ```
 
-### 6. Run the application on a local server.
+### 5. Open a web browser and type: 
 ```
-npm start
-```
-
-### 6. Open a web browser and type: 
-```
-http://localhost:3000/
+http://localhost:8000/
 ```
 
 ## Technologies
