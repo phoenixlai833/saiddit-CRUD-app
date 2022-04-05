@@ -1,4 +1,4 @@
-# Reddit Clone
+# Saiddit
 This is a dynamic CRUD web app using Express.js and EJS, simulating the actions in Reddit. This project stemmed from an assignment in our second semester web development class to practice creating multiple routes across multiple resources. Using a fake database, I also implemented cookie sessions for secure user login and browsing.
 
 ### Key Takeaways
