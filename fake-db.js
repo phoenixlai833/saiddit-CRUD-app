@@ -25,17 +25,17 @@ const users = {
 const posts = {
   101: {
     id: 101,
-    title: "Fishsticks",
-    link: "https://www.smithsonianmag.com/innovation/surprising-success-story-fish-sticks-180977578/",
-    description: "I actually really do not like fish sticks",
+    title: "Noodles are the best",
+    link: "https://www.nationalgeographic.com/culture/article/noodles-the-ultimate-global-comfort-food",
+    description: "I can eat noodles for the rest of my life.",
     creator: 1,
     subgroup: 'Food',
     timestamp: 1643648446955,
   },
   102: {
     id: 102,
-    title: "Charlie the Unicorn",
-    link: "https://www.youtube.com/watch?v=CsGYh8AacgY",
+    title: "Michelin Madness",
+    link: "https://www.youtube.com/watch?v=0f-j1ctaQqw",
     description: "",
     creator: 2,
     subgroup: 'Documentaries',
@@ -48,7 +48,7 @@ const comments = {
     id: 9001,
     post_id: 102,
     creator: 1,
-    description: "Actually I learned a lot :pepega:",
+    description: "Actually I learned a lot!",
     timestamp: 1642691742010,
     replies: []
   }
