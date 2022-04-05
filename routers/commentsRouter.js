@@ -23,7 +23,8 @@ router.post("/reply/:commentid", (req, res) => {
 
 router.get("/edit/:commentid", (req, res) => {
     let comment_id = req.params.commentid;
-    res.render("comments/edit-comment", { comment_id });
+    let select_comment = db.getComment(comment_id);
+    res.render("comments/edit-comment", { comment_id, select_comment });
 })
 
 router.post("/edit/:commentid", (req, res) => {

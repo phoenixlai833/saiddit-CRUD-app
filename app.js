@@ -11,7 +11,8 @@ const commentsRouter = require("./routers/commentsRouter");
 const usersRouter = require("./routers/usersRouter");
 
 app.set('view engine', 'ejs');
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
+// app.use('/public', express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieSession({

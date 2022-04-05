@@ -5,37 +5,176 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Edit Post</title>
+    <style>
+        .btn {
+            background-color: white;
+        }
+
+        .btn.votes {
+            background-color: #ffc107;
+            padding: 0;
+            font-size: 10px;
+            width: 15px;
+        }
+
+        .editBtn {
+            background-color: black;
+            color: white;
+            border-radius: 0.5em;
+            border: none;
+            padding: 4px 0 4px 0;
+        }
+
+        .editBtn:hover {
+            background-color: #ffc107;
+        }
+
+        .btn:hover {
+            background-color: black;
+            outline: none;
+            color: white;
+        }
+
+        .onePost {
+            box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
+            border-radius: 1em;
+            padding: 3%;
+            margin-bottom: 3%;
+        }
+
+        .onePost:hover {
+            border: #ffc107 1px solid;
+        }
+
+        .content a {
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        html {
+            background-image:
+                /* tint image */
+                linear-gradient(to right, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)),
+                /* checkered effect */
+                linear-gradient(to right, black 50%, white 50%),
+                linear-gradient(to bottom, black 50%, white 50%);
+            background-blend-mode: normal, difference, normal;
+            background-size: 9em 9em;
+            overflow: hidden;
+        }
+
+        .content {
+            font-size: 13px;
+            background-color: white;
+            color: white;
+            padding: 10%;
+            border-radius: 1em;
+        }
+
+        .greyBack {
+            font-size: 13px;
+            background-color: rgba(0, 0, 0, 0.25);
+            color: white;
+            padding: 5% 5% 0 5%;
+        }
+
+        p.lead a.title {
+            color: #ffc107;
+        }
+
+        form input {
+            border-radius:0.25em;
+            border: solid rgba(0, 0, 0, 0.2);
+            color:rgba(0, 0, 0, 0.5);
+        }
+
+        form textarea {
+            height:100px; 
+            color:black; 
+            border: solid rgba(0, 0, 0, 0.2);
+            border-radius:0.75em;
+            color:rgba(0, 0, 0, 0.5);
+        }
+
+        ul.navbar-nav a.home:hover,
+        ul.navbar-nav a.browseSubs:hover,
+        ul.navbar-nav a.signUp:hover {
+            color: black !important;
+            opacity: 30%;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="header" style="display:flex; justify-content: space-between;">
-        <h1><a href="/"><img src="/Jeddit-Logo.png" alt="Jeddit" style="height:60px;"/></a></h1>
-        <a href="/posts/create">Create a Post!</a>
-        <a href="/subs/list">Browse Subs</a>
-        <form method="POST" action="/logout">
-            <button type="submit">Log Out</button>
+    <nav class="navbar navbar-expand-md navbar-dark bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img src="/Saiddit-logos_white.png" alt="Saiddit"
+                    style="height:30px; margin:3%;" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white home px-3" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white browseSubs px-3" href="/subs/list">Browse Subs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white signUp px-3" 
+                            href="/posts/create">Create a
+                            Post!</a>
+                    </li>
+                    <form class="d-flex" method="POST" action="/logout">
+                        <button class="btn text-warning px-3" style="margin-left: 15px;" type="submit">Log Out</button>
+                    </form>
+            </div>
+        </div>
+    </nav>
+
+<div class="greyBack">
+    <div class="content text-muted">
+        <a href="/posts/show/<%= post_id %>" style="color:black;">
+            < Back</a>
+            <hr style="opacity:0; margin: 2%;">
+        <form action="/posts/edit/<%= post_id %> " method="POST"
+            style="display:flex; flex-direction: column; width: 60%;">
+
+            <label for="input_title">Title</label>
+            <input type="text" name="title" id="input_title" value="<%= select_post.title %>">
+            <hr style="opacity:0; margin: 2%;">
+
+            <label for="input_link">Link</label>
+            <input type="text" name="link" id="input_link" value="<%= select_post.link %> ">
+            <hr style="opacity:0; margin: 2%;">
+
+            <label for="input_description">Description</label>
+            <textarea name="description" id="input_description"><%= select_post.description %></textarea>
+            <hr style="opacity:0; margin: 2%;">
+
+            <label for="input_subgroup">Subgroup</label>
+            <input type="text" name="subgroup" id="input_subgroup" value="<%= select_post.subgroup %> ">
+            <hr style="opacity:0;">
+
+            <button class="editBtn" type="submit">Edit Post</button>
         </form>
     </div>
+</div>
 
-    <form action="/posts/edit/<%= post_id %> " method="POST" style="display:flex; flex-direction: column; margin:20%;">
+    <div style="background-color:rgba(0, 0, 0, 0.25); width: 100vw; height: 10vh;"></div>
 
-        <label for="input_title">Title:</label>
-        <input type="text" name="title" id="input_title">
-
-        <label for="input_link">Link:</label>
-        <input type="text" name="link" id="input_link">
-
-
-        <label for="input_description">Description:</label>
-        <textarea name="description" id="input_description"></textarea>
-
-        <label for="input_subgroup">Subgroup:</label>
-        <input type="text" name="subgroup" id="input_subgroup">
-        <hr>
-        <button type="submit">Edit</button>
-    </form>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

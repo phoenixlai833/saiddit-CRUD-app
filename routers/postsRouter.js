@@ -36,7 +36,8 @@ router.post("/create", (req, res) => {
 
 router.get("/edit/:postid", (req, res) => {
     const post_id = req.params.postid;
-    res.render("posts/edit-post", { post_id });
+    let select_post = db.getPost(post_id);
+    res.render("posts/edit-post", { post_id, select_post });
 })
 
 router.post("/edit/:postid", (req, res) => {
@@ -66,7 +67,8 @@ router.post("/delete/:postid", (req, res) => {
     const post_id = req.params.postid;
     const post_subgroup = db.getPost(post_id).subgroup;
     db.deletePost(post_id);
-    res.redirect(`/subs/show/${post_subgroup}`);
+    // res.redirect(`/subs/show/${post_subgroup}`);
+    res.redirect("/");
 })
 
 router.post("/comment-create/:postid", (req, res) => {

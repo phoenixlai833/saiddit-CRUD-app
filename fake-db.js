@@ -29,7 +29,7 @@ const posts = {
     link: "https://www.smithsonianmag.com/innovation/surprising-success-story-fish-sticks-180977578/",
     description: "I actually really do not like fish sticks",
     creator: 1,
-    subgroup: 'food',
+    subgroup: 'Food',
     timestamp: 1643648446955,
   },
   102: {
@@ -38,7 +38,7 @@ const posts = {
     link: "https://www.youtube.com/watch?v=CsGYh8AacgY",
     description: "",
     creator: 2,
-    subgroup: 'documentaries',
+    subgroup: 'Documentaries',
     timestamp: 1642611742010,
   },
 };

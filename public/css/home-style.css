@@ -1,0 +1,18 @@
+.btn {
+  background-color: white;
+}
+
+.btn:active,
+.btn.active {
+  background-color: green;
+  outline: none;
+}
+
+.btn:focus {
+  background-color: green;
+  outline: none;
+}
+
+html body {
+  background-color: black;
+}
